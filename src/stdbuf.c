@@ -18,6 +18,12 @@ PARAM_DEFINE_STATIC_RAM(PARAMID_STDBUF_IN, stdbuf_in, PARAM_TYPE_UINT16, 0, 0, P
 PARAM_DEFINE_STATIC_RAM(PARAMID_STDBUF_OUT, stdbuf_out, PARAM_TYPE_UINT16, 0, 0, PM_ERRCNT, NULL, "", &_stdbuf_out, NULL);
 
 void _putchar(unsigned char character) {
+	// data overflow protection
+	if (_stdbuf_in > STDBUF_SIZE)
+		_stdbuf_in = 1;
+
+	if (_stdbuf_out > STDBUF_SIZE)
+		_stdbuf_out = 0;
 
 	/* Place in vmem ringbuffer */
 	((unsigned char *) vmem_stdbuf.vaddr)[_stdbuf_in++] = character;
