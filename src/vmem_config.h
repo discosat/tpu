@@ -11,3 +11,4 @@ extern vmem_t vmem_config;
 #define VMEM_CONF_ARB_PARAM_INT_2_ADDR 0x101 // (=257) 2 bytes
 #define VMEM_CONF_ARB_PARAM_FLOAT_0_ADDR 0x103 // (=259) 4 bytes
 #define VMEM_CONF_ARB_PARAM_FLOAT_1_ADDR 0x107 // (=263) 4 bytes
+#define VMEM_CONF_DISINTEGRATOR_STATE_ADDR 0x111 // (=267) 2 bytes

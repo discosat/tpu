@@ -24,6 +24,7 @@ sources = files([
     'src/vmem_config.c',
     'src/telem.c',
     'src/arb_params.c',
+    'src/disintegrator_state.c',
     'src/stdbuf.c',
 ])
 
@@ -63,4 +64,16 @@ change_arb_param_deps = [param_dep]
 change_arb_param = executable('change_arb_param', change_arb_param_src,
 	dependencies : change_arb_param_deps,
 	install : true,
+)
+
+change_disintegrator_state_src = files([
+	'src/change_disintegrator_state.c',
+	'src/disintegrator_state.c',
+	'src/vmem_config.c'
+])
+
+change_disintegrator_state_deps = [param_dep]
+change_disintegrator_state = executable('change_disintegrator_state', change_disintegrator_state_src,
+	dependencies: change_disintegrator_state_deps,
+	install: true,
 )
