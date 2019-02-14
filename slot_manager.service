@@ -1,0 +1,14 @@
+[Unit]
+Description=TPU slot manager
+
+[Service]
+WorkingDirectory=/home/mendel
+Type=simple
+ExecStart=sudo /home/mendel/tpu_slotman start
+Restart=on-failure
+
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target
+
