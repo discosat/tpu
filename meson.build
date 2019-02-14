@@ -19,6 +19,7 @@ sources = files([
     'src/csp_hooks.c',
     'src/bootcnt.c',
     'src/executor/executor.c',
+    'src/slotname.c',
     'src/vmem_config.c',
 ])
 
