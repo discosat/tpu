@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "hello from slot 0"
+echo $(pwd)
+
+sudo ./boot_increment
+sudo ./tpu_serv
