@@ -13,7 +13,6 @@ extern uint16_t _stdbuf_out;
 #define STDBUF_MTU (CSP_BUFFER_SIZE - 16)
 
 void stdbuf_serve(csp_packet_t * request) {
-    printf("STDBUFF!!\n");
     int again;
 
     do {
