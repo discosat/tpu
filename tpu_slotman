@@ -5,24 +5,27 @@
 # the "slot" launced each time. If a slot file i not present it goes to the next one.
 # To start the next slot call tpu_slotman start
 
-bin_name="tpu_csp"
-bin_dir="/home/foo/bar"
+bin_name="slot_entry"
+home_dir="/home/mendel/"
 
 next_slot_file(){
     sl=$(cat next_slot || echo "0")
-    printf "%s-%d" $bin_name $sl
+    printf "slot%d/" $sl
     sl=$(( $sl + 1 ))
     sl=$(( $sl % 4 ))
     echo $sl > next_slot
-
 }
 
 start(){
-    file=$(next_slot_file)
-    while [ ! -f $bin_dir$file ]; do
+    echo pwd:$(pwd)
+    cd $home_dir
+    dir=$(next_slot_file)
+    echo $home_dir$dir$bin_name
+    while [ ! -f $home_dir$dir$bin_name ]; do
         file=$(next_slot_file)
     done
-    $bin_dir$file &
+    cd $home_dir$dir
+    $home_dir$dir$bin_name
 }
 
 ${@}

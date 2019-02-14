@@ -71,7 +71,7 @@ static void iface_init(void){
 
     iface->addr = 162;
     iface->netmask = 8;
-    iface->name = "CAN";
+    iface->name = "KISS";
     csp_rtable_set(0, 0, iface, CSP_NO_VIA_ADDRESS);
 	csp_iflist_set_default(iface);
 
