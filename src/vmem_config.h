@@ -1,0 +1,1 @@
+#define VMEM_CONF_BOOTCNT_ADDR 0x00

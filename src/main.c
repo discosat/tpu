@@ -8,9 +8,13 @@
 #include "hooks.h"
 #include <vmem/vmem_server.h>
 #include <vmem/vmem_file.h>
+#include "vmem_config.h"
 
 //Define file to store persisten params
-VMEM_DEFINE_FILE(config, "config", "config.vmem", 120);
+VMEM_DEFINE_FILE(config, "config", "config.vmem", 5000);
+
+//Example of creating a parameter in config file
+PARAM_DEFINE_STATIC_VMEM(1, boot_cnt, PARAM_TYPE_UINT16, -1 ,0, PM_SYSINFO, NULL, NULL, config,VMEM_CONF_BOOTCNT_ADDR, NULL);
 
 void * vmem_server_task(void * param) {
 	vmem_server_loop(param);
@@ -49,7 +53,7 @@ static void iface_init(csp_iface_t *iface){
     int error = csp_can_socketcan_open_and_add_interface("vcan0", "CAN", 0, true, &iface);
     if (error != CSP_ERR_NONE) {
         csp_print("failed to add CAN interface [%s], error: %d\n", "vcan0", error);
-        exit(1);
+        return;
     }
     iface->addr = 1;
     iface->netmask = 8;
@@ -88,6 +92,8 @@ void main(void){
 	csp_bind_callback(csp_service_handler, CSP_ANY);
 	csp_bind_callback(param_serve, PARAM_PORT_SERVER);
 	//csp_bind_callback(stdbuf_serve, 15);
+
+	vmem_file_init(&vmem_config);
 
 	static pthread_t router_handle;
 	pthread_create(&router_handle, NULL, &router_task, NULL);
