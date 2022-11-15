@@ -1,0 +1,9 @@
+[submodule "lib/csp"]
+	path = lib/csp
+	url = git@github.com:libcsp/libcsp.git
+[submodule "lib/param"]
+	path = lib/param
+	url = git@github.com:spaceinventor/libparam.git
+[submodule "lib/csh_ftp"]
+	path = lib/csp_ftp
+	url = git@github.com:discosat/csp_ftp.git
