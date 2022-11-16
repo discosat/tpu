@@ -8,6 +8,7 @@ sources = files([
 	'src/main.c',
 	'src/hooks.c',
     'src/serial.c',
+    'src/csp_hooks.c',
 ])
 
 
