@@ -65,6 +65,11 @@ static void iface_init(csp_iface_t *iface){
 void main(void){
 	printf("\nbootmsg\n");
 
+	srand(time(NULL));
+	
+	void serial_init(void);
+	serial_init();
+
 	/* Gndwdt
 	gndwdt_init();
     */
