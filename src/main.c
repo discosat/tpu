@@ -34,7 +34,9 @@ static void onehz_task(void * param) {
 	}
 }
 
-static void iface_init(csp_iface_t *iface){
+static void iface_init(void){
+    csp_iface_t * iface = NULL;
+
     /* KISS setup
     csp_usart_conf_t conf = {
         .device = kiss_device,
@@ -50,11 +52,15 @@ static void iface_init(csp_iface_t *iface){
         exit(1);
     }
     */
+
     int error = csp_can_socketcan_open_and_add_interface("vcan0", "CAN", 0, true, &iface);
     if (error != CSP_ERR_NONE) {
         csp_print("failed to add CAN interface [%s], error: %d\n", "vcan0", error);
         return;
     }
+    
+	//csp_zmqhub_init_filter2("ZMQ", "localhost", 3, 8, true, &iface);
+
     iface->addr = 1;
     iface->netmask = 8;
     iface->name = "CAN";
@@ -78,8 +84,7 @@ void main(void){
 	csp_init();
 
 	/* Interfaces */
-    csp_iface_t * iface = NULL;
-    iface_init(iface);
+    iface_init();
     csp_print("Connection table\r\n");
     csp_conn_print_table();
 
