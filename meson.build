@@ -17,16 +17,28 @@ sources = files([
 	'src/hooks.c',
     'src/serial.c',
     'src/csp_hooks.c',
+    'src/bootcnt.c',
 ])
 
 
-deps = []
-deps += dependency('csp', fallback: ['csp', 'csp_dep'])
-deps += dependency('param', fallback: ['param', 'param_dep'])
-deps += dependency('csp_ftp', fallback: ['csp_ftp', 'csp_ftp_dep'])
+csp_dep = dependency('csp', fallback: ['csp', 'csp_dep'])
+param_dep = dependency('param', fallback: ['param', 'param_dep'])
+ftp_dep = dependency('csp_ftp', fallback: ['csp_ftp', 'csp_ftp_dep'])
+
+deps = [csp_dep,param_dep,ftp_dep]
 
 tpu_serv = executable('tpu_serv', sources,
 	dependencies : deps,
 	install : true,
 )
 
+boot_increment_src = files([
+    'src/boot_increment.c',
+    'src/bootcnt.c',
+])
+
+boot_increment_deps = [param_dep]
+boot_increment = executable('boot_increment', boot_increment_src,
+	dependencies : boot_increment_deps,
+	install : true,
+)

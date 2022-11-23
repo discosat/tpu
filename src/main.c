@@ -8,13 +8,8 @@
 #include "hooks.h"
 #include <vmem/vmem_server.h>
 #include <vmem/vmem_file.h>
-#include "vmem_config.h"
+#include "bootcnt.h"
 
-//Define file to store persisten params
-VMEM_DEFINE_FILE(config, "config", "config.vmem", 5000);
-
-//Example of creating a parameter in config file
-PARAM_DEFINE_STATIC_VMEM(1, boot_cnt, PARAM_TYPE_UINT16, -1 ,0, PM_SYSINFO, NULL, NULL, config,VMEM_CONF_BOOTCNT_ADDR, NULL);
 
 void * vmem_server_task(void * param) {
 	vmem_server_loop(param);
@@ -115,5 +110,8 @@ void main(void){
 	pthread_create(&onehz_handle, NULL, &onehz_task, NULL);
 
 	hook_init();
-	while (1);
+	while (1){
+        sleep(10*1000);
+    }
+
 }
