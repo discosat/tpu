@@ -1,0 +1,13 @@
+[Unit]
+Description=TPU Bootcnt
+
+[Service]
+WorkingDirectory=/home/chris/tpu_serv
+Type=simple
+ExecStart=/home/chris/Dokumenter/projects/discosat/tpu/builddir/boot_increment
+Restart=never
+
+
+#[Install]
+#WantedBy=default.target
+#RequiredBy=network.target

@@ -109,9 +109,18 @@ void main(void){
 	static pthread_t onehz_handle;
 	pthread_create(&onehz_handle, NULL, &onehz_task, NULL);
 
+
 	hook_init();
 	while (1){
-        sleep(10*1000);
+        sleep(10*1000); //TODO: Handle kbd interupt
     }
+
+	//pthread_cancel(router_handle);
+	//pthread_cancel(onehz_handle);
+	//pthread_cancel(vmem_server_handle);
+
+	//pthread_join(router_handle,NULL);
+	//pthread_join(onehz_handle,NULL);
+	//pthread_join(vmem_server_handle,NULL);
 
 }

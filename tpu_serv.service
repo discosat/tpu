@@ -1,0 +1,14 @@
+[Unit]
+Description=TPU csp
+After=tpu_bootcnt
+
+[Service]
+WorkingDirectory=/home/chris/tpu_serv
+Type=simple
+ExecStart=/home/chris/Dokumenter/projects/discosat/tpu/builddir/tpu_serv &
+Restart=on-failure
+
+
+#[Install]
+#WantedBy=default.target
+#RequiredBy=network.target
