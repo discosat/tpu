@@ -1,0 +1,16 @@
+#!/bin/bash
+sudo ip link add dev vcan0 type vcan
+sudo ip link set up vcan0
+
+
+WATCH='false'
+
+while getopts ':w' 'OPT'; do
+  case ${OPT} in
+    'w') WATCH='true'
+  esac
+done
+
+if ${WATCH}; then
+  sudo watch -n1 "ip --details --statistics link show vcan0"
+fi
