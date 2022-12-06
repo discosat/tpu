@@ -1,2 +1,2 @@
-extern vmem_t vmem_config;
+#pragma once
 extern param_t boot_cnt;

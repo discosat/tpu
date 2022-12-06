@@ -9,6 +9,16 @@
 #include <vmem/vmem_server.h>
 #include <vmem/vmem_file.h>
 #include "bootcnt.h"
+#include "vmem_config.h"
+
+csp_conf_t csp_conf = {
+	.version = 2,
+	.hostname = "",
+	.model = "",
+	.revision = "",
+	.conn_dfl_so = CSP_O_NONE,
+	.dedup = CSP_DEDUP_OFF
+};
 
 
 void * vmem_server_task(void * param) {
@@ -25,7 +35,7 @@ void router_task(void * param) {
 static void onehz_task(void * param) {
 	while(1) {
 		hook_onehz();
-		sleep(1000);
+		sleep(1);
 	}
 }
 
@@ -76,6 +86,7 @@ void main(void){
     */
 
 	/* Init CSP with */
+	csp_conf.hostname = HOSTNAME;
 	csp_init();
 
 	/* Interfaces */

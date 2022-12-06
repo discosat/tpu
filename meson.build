@@ -18,6 +18,8 @@ sources = files([
     'src/serial.c',
     'src/csp_hooks.c',
     'src/bootcnt.c',
+    'src/executor/executor.c',
+    'src/vmem_config.c',
 ])
 
 
@@ -27,14 +29,18 @@ ftp_dep = dependency('csp_ftp', fallback: ['csp_ftp', 'csp_ftp_dep'])
 
 deps = [csp_dep,param_dep,ftp_dep]
 
+c_args = '-DHOSTNAME="@0@"'.format(get_option('hostname'))
+
 tpu_serv = executable('tpu_serv', sources,
 	dependencies : deps,
 	install : true,
+    c_args : c_args,
 )
 
 boot_increment_src = files([
     'src/boot_increment.c',
     'src/bootcnt.c',
+    'src/vmem_config.c',
 ])
 
 boot_increment_deps = [param_dep]
