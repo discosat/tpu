@@ -26,13 +26,14 @@ void run_file(void) {
 	param_get_data(&target_file, buf, 100);
 	int len = strnlen(buf, 100);
 	printf("Running file: %s %u\n", buf, len);
-    //TODO: system(<foo>) ??
+        system(buf);
 }
 
 void check_run_onboot(void) {
     uint8_t do_run = param_get_uint8(&tpu_run_onboot);
     if(do_run > 0){
         run_file();
+        // This should probably run on every boot
         param_set_uint8(&tpu_run,0);
     }
 }

@@ -10,10 +10,11 @@
 #include <vmem/vmem_file.h>
 #include "bootcnt.h"
 #include "vmem_config.h"
+#include <csp/drivers/usart.h>
 
 csp_conf_t csp_conf = {
 	.version = 2,
-	.hostname = "",
+	.hostname = "IPU",
 	.model = "",
 	.revision = "",
 	.conn_dfl_so = CSP_O_NONE,
@@ -41,8 +42,10 @@ static void onehz_task(void * param) {
 
 static void iface_init(void){
     csp_iface_t * iface = NULL;
+    char* kiss_device = "/dev/ttyS1";
 
-    /* KISS setup
+
+    // KISS setup
     csp_usart_conf_t conf = {
         .device = kiss_device,
         .baudrate = 115200,
@@ -56,21 +59,22 @@ static void iface_init(void){
         csp_print("failed to add KISS interface [%s], error: %d\n", kiss_device, error);
         exit(1);
     }
-    */
-
+    
+/*
     int error = csp_can_socketcan_open_and_add_interface("vcan0", "CAN", 0, true, &iface);
     if (error != CSP_ERR_NONE) {
         csp_print("failed to add CAN interface [%s], error: %d\n", "vcan0", error);
         return;
     }
-    
+  */  
 	//csp_zmqhub_init_filter2("ZMQ", "localhost", 3, 8, true, &iface);
 
-    iface->addr = 1;
+    iface->addr = 162;
     iface->netmask = 8;
     iface->name = "CAN";
     csp_rtable_set(0, 0, iface, CSP_NO_VIA_ADDRESS);
 	csp_iflist_set_default(iface);
+
 }
 
 void main(void){
