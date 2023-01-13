@@ -1,8 +1,8 @@
 TEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 TEMP=$(($TEMP/1000))
 echo TEMP $TEMP
-FREE_MEM=$(free -m |grep -i "Mem:"|tr -s ' '|cut -d ' ' -f3)
-echo FREE_MEM $FREE_MEM
+USED_MEM=$(free -m |grep -i "Mem:"|tr -s ' '|cut -d ' ' -f3)
+echo USED_MEM $USED_MEM
 USER_UTIL=$(top -b -d1 -n1|grep -i "Cpu(s)"|tr -s ' '|cut -d ' ' -f2)
 SYS_UTIL=$(top -b -d1 -n1|grep -i "Cpu(s)"|tr -s ' '|cut -d ' ' -f4)
 echo USER_UTIL $USER_UTIL
