@@ -21,6 +21,7 @@ sources = files([
     'src/executor/executor.c',
     'src/slotname.c',
     'src/vmem_config.c',
+    'src/telem.c',
 ])
 
 
