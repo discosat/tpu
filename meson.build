@@ -22,6 +22,7 @@ sources = files([
     'src/slotname.c',
     'src/vmem_config.c',
     'src/telem.c',
+    'src/arb_params.c',
 ])
 
 
