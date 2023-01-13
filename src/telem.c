@@ -1,7 +1,7 @@
 #include <param/param.h>
-#include <param_config.h>
 #include <stdio.h>
 #include <string.h>
+#include "param_config.h"
 
 static uint8_t _tlm_temp = 0;
 PARAM_DEFINE_STATIC_RAM(PARAMID_TELEM+0, tlm_temp, PARAM_TYPE_UINT8, -1, 0, PM_TELEM, NULL, NULL, &_tlm_temp,"Temperature");

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <csp_ftp/ftp_server.h>
+#include "telem.h"
 #include "executor/executor.h"
 
 bool first_run = true;
@@ -9,6 +10,7 @@ void hook_onehz(void) {
         check_run_onboot();
     }
     check_run();
+    tlm_onehz();
     first_run = false;
 }
 
