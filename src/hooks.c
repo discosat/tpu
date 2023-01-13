@@ -8,6 +8,7 @@ bool first_run = true;
 void hook_onehz(void) {
     if(first_run){
         check_run_onboot();
+        //tlm_onehz();
     }
     check_run();
     tlm_onehz();
