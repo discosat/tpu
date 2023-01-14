@@ -51,3 +51,14 @@ boot_increment = executable('boot_increment', boot_increment_src,
 	dependencies : boot_increment_deps,
 	install : true,
 )
+change_arb_param_src = files([
+    'src/change_arb_param.c',
+    'src/arb_params.c',
+    'src/vmem_config.c',
+])
+
+change_arb_param_deps = [param_dep]
+change_arb_param = executable('change_arb_param', change_arb_param_src,
+	dependencies : change_arb_param_deps,
+	install : true,
+)
