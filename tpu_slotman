@@ -18,6 +18,11 @@ next_slot_file(){
 
 start(){
     echo pwd:$(pwd)
+    for slot in "slot0" "slot1" "slot2" "slot3"
+    do
+	    cd $home_dir$slot
+	    sudo ./boot_increment
+    done
     cd $home_dir
     dir=$(next_slot_file)
     echo $home_dir$dir$bin_name

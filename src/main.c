@@ -11,6 +11,7 @@
 #include "bootcnt.h"
 #include "vmem_config.h"
 #include <csp/drivers/usart.h>
+#include <csp_ftp/ftp_server.h>
 
 csp_conf_t csp_conf = {
 	.version = 2,
@@ -27,17 +28,24 @@ void * vmem_server_task(void * param) {
 	return NULL;
 }
 
-void router_task(void * param) {
+void * ftp_server_task(void * param) {
+	ftp_server_loop(param);
+	return NULL;
+}
+
+void * router_task(void * param) {
 	while(1) {
 		csp_route_work();
 	}
+	return NULL;
 }
 
-static void onehz_task(void * param) {
+static void * onehz_task(void * param) {
 	while(1) {
 		hook_onehz();
 		sleep(1);
 	}
+	return NULL;
 }
 
 static void iface_init(void){
@@ -77,7 +85,7 @@ static void iface_init(void){
 
 }
 
-void main(void){
+int main(void){
 	printf("\nbootmsg\n");
 
 	srand(time(NULL));
@@ -111,6 +119,7 @@ void main(void){
 
 	csp_bind_callback(csp_service_handler, CSP_ANY);
 	csp_bind_callback(param_serve, PARAM_PORT_SERVER);
+
 	//csp_bind_callback(stdbuf_serve, 15);
 
 	vmem_file_init(&vmem_config);
@@ -120,6 +129,9 @@ void main(void){
 
 	static pthread_t vmem_server_handle;
 	pthread_create(&vmem_server_handle, NULL, &vmem_server_task, NULL);
+
+	static pthread_t ftp_server_handle;
+	pthread_create(&ftp_server_handle, NULL, &ftp_server_task, NULL);
 
 	static pthread_t onehz_handle;
 	pthread_create(&onehz_handle, NULL, &onehz_task, NULL);
@@ -133,9 +145,12 @@ void main(void){
 	//pthread_cancel(router_handle);
 	//pthread_cancel(onehz_handle);
 	//pthread_cancel(vmem_server_handle);
+	//ptrhead_cancel(ftp_server_handle);
 
 	//pthread_join(router_handle,NULL);
 	//pthread_join(onehz_handle,NULL);
 	//pthread_join(vmem_server_handle,NULL);
-
+	//pthread_join(ftp_server_handle);
+	
+	return 0;
 }
