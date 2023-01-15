@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdio.h>
 #include <csp/csp.h>
 #include <stdio.h>
 #include <unistd.h>
