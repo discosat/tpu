@@ -97,7 +97,7 @@ void bufread(void){
 
 int main(void){
     pipe(fd);
-    //dup2(fd[1],1);
+    dup2(fd[1],1);
     dup2(fd[1],2);
 	printf("\nbootmsg\n");
 
@@ -148,6 +148,8 @@ int main(void){
 	static pthread_t onehz_handle;
 	pthread_create(&onehz_handle, NULL, &onehz_task, NULL);
 
+	static pthread_t buf_handle;
+	pthread_create(&buf_handle, NULL, &bufread, NULL);
 
 	hook_init();
 	while (1){

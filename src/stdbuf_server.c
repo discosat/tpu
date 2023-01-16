@@ -44,9 +44,6 @@ void stdbuf_serve(csp_packet_t * request) {
         _stdbuf_out = (to) % STDBUF_SIZE;
 
         int len = to - from;
-
-        printf("F%u T%u O%u I%u\n", from, to, _stdbuf_out, _stdbuf_in);
-
         csp_packet_t * packet = csp_buffer_get(STDBUF_MTU);
         if (packet == NULL)
             continue;
