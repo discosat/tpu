@@ -6,9 +6,9 @@
 #define STDBUF_SIZE 1024 * 10
 #endif
 
-extern char live_stdbuf[STDBUF_SIZE];
-extern unsigned short live_stdbuf_in;
-extern unsigned short live_stdbuf_out;
+extern char vmem_stdbuf_heap[STDBUF_SIZE];
+extern uint16_t _stdbuf_in;
+extern uint16_t _stdbuf_out;
 
 #define STDBUF_MTU (CSP_BUFFER_SIZE - 16)
 
@@ -19,8 +19,8 @@ void stdbuf_serve(csp_packet_t * request) {
 	do {
 		again = 0;
 
-		int from = live_stdbuf_out;
-		int to = live_stdbuf_in - 1;
+		int from = _stdbuf_out;
+		int to = _stdbuf_in - 1;
 		if (to < 0) {	
 			to = STDBUF_SIZE;		           
 	       	}
@@ -40,16 +40,16 @@ void stdbuf_serve(csp_packet_t * request) {
 		}
 
 		/* Increment */
-		live_stdbuf_out = (to) % STDBUF_SIZE;
+		_stdbuf_out = (to) % STDBUF_SIZE;
 
 		int len = to - from;
 
-		printf("F%u T%u O%u I%u\n", from, to, live_stdbuf_out, live_stdbuf_in);
+		printf("F%u T%u O%u I%u\n", from, to, _stdbuf_out, _stdbuf_in);
 												csp_packet_t * packet = csp_buffer_get(STDBUF_MTU);
 												if (packet == NULL)
 			continue;
 		
-		memcpy(&packet->data[1], &live_stdbuf[from], len);
+		memcpy(&packet->data[1], &vmem_stdbuf_heap[from], len);
 		packet->data[0] = again;
 		packet->length = len + 1;
 		csp_sendto_reply(request, packet, CSP_O_CRC32);
