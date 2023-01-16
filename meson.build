@@ -14,7 +14,7 @@ project('tpu', 'c',subproject_dir: 'lib',default_options: [
 
 sources = files([
 	'src/main.c',
-	#'src/stdbuf_server.c',
+	'src/stdbuf_server.c',
 	'src/hooks.c',
     'src/serial.c',
     'src/csp_hooks.c',
@@ -24,7 +24,7 @@ sources = files([
     'src/vmem_config.c',
     'src/telem.c',
     'src/arb_params.c',
-    #'src/stdbuf.c',
+    'src/stdbuf.c',
 ])
 
 

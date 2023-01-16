@@ -11,6 +11,7 @@
 #include "vmem_config.h"
 #include <csp/drivers/usart.h>
 #include <csp_ftp/ftp_server.h>
+#include "stdbuf_server.h"
 
 csp_conf_t csp_conf = {
 	.version = 2,
@@ -83,8 +84,21 @@ static void iface_init(void){
 	csp_iflist_set_default(iface);
 
 }
+int fd[2];
+
+extern void _putchar(unsigned char character);
+void bufread(void){
+    char c;
+    ssize_t rc;
+    while ((rc = read(fd[0], &c, sizeof c)) > 0){
+        _putchar(c);
+    }
+}
 
 int main(void){
+    pipe(fd);
+    //dup2(fd[1],1);
+    dup2(fd[1],2);
 	printf("\nbootmsg\n");
 
 	srand(time(NULL));
@@ -118,8 +132,7 @@ int main(void){
 
 	csp_bind_callback(csp_service_handler, CSP_ANY);
 	csp_bind_callback(param_serve, PARAM_PORT_SERVER);
-
-	//csp_bind_callback(stdbuf_serve, 15);
+	csp_bind_callback(stdbuf_serve, 15);
 
 	vmem_file_init(&vmem_config);
 
