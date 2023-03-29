@@ -4,7 +4,7 @@
 
 
 /* Define a tpu_run parameter */
-static uint16_t _tpu_run = 0;
+static uint8_t _tpu_run = 0;
 PARAM_DEFINE_STATIC_RAM(PARAMID_TPU_RUN, tpu_run, PARAM_TYPE_UINT8, -1, 0, PM_CONF, NULL, NULL, &_tpu_run,"Set the tpu to execute the file");
 
 /* Define a persisten target file to run */
